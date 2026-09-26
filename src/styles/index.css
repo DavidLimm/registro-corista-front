@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-marinho: #0B2A5B;
+  --color-marinho-escuro: #071C3D;
+  --color-marinho-medio: #2F5597;
+  --color-dourado: #C9A227;
+  --color-dourado-escuro: #7A5E0E;
+  --color-dourado-claro: #F6EDD0;
+  --color-fundo: #F4F6FA;
+  --color-superficie: #FFFFFF;
+  --color-suave: #F8F9FC;
+  --color-texto: #1A2233;
+  --color-texto-suave: #5B6478;
+  --color-placeholder: #9AA3B5;
+  --color-borda: #DCE1EA;
+  --color-sucesso: #2E7D4F;
+  --color-sucesso-claro: #E3F2E9;
+  --color-alerta: #9A6412;
+  --color-alerta-claro: #FCF1DC;
+  --color-info-claro: #E7EDF7;
+  --color-erro: #B42318;
+
+  --font-titulo: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-campo: 8px;
+  --radius-card: 12px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-fundo);
+  color: var(--color-texto);
+}
+
