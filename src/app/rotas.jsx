@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import RotaProtegida from '../auth/RotaProtegida';
+import { PERMISSOES } from '../auth/permissoes';
 import LayoutPublico from '../shared/layout/LayoutPublico';
 import LayoutLideranca from '../shared/layout/LayoutLideranca';
 import LayoutCorista from '../shared/layout/LayoutCorista';
@@ -17,20 +18,20 @@ export const rotas = createBrowserRouter([
     ],
   },
   {
-    element: <RotaProtegida papeisPermitidos={['ADMIN', 'PASTOR']} />,
+    element: <RotaProtegida permissoesPermitidas={[PERMISSOES.DASHBOARD_LER]} />,
     children: [
       {
         path: '/lideranca',
         element: <LayoutLideranca />,
         children: [
           { index: true, element: <DashboardLideranca /> },
-          // TODO: coristas, aprovacoes, pessoas, congregacoes, areas, papeis
+          // TODO: coristas, aprovacoes, afastamentos, pessoas, congregacoes, agrupamentos, usuarios, escopo, papeis
         ],
       },
     ],
   },
   {
-    element: <RotaProtegida papeisPermitidos={['CORISTA']} />,
+    element: <RotaProtegida />,
     children: [
       {
         path: '/corista',

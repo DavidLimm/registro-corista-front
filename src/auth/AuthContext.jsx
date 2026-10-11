@@ -1,37 +1,30 @@
-import { createContext, useContext, useState } from 'react';
-import { PAPEIS } from './papeis';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { api } from '../api/cliente';
+import { definirToken, definirAoExpirarSessao } from './token';
 
 const AuthContext = createContext(null);
 
-const USUARIO_FAKE_LIDERANCA = {
-  id: 'fake-lideranca',
-  nome: 'Líder de Teste',
-  papel: PAPEIS.ADMIN,
-  areas: ['100'],
-};
-
-const USUARIO_FAKE_CORISTA = {
-  id: 'fake-corista',
-  nome: 'Corista de Teste',
-  papel: 'CORISTA',
-  areas: ['100'],
-};
-
 export function AuthProvider({ children }) {
-  const [usuario, setUsuario] = useState(null);
+  const [sessao, setSessao] = useState(null); // { email, roles }
 
-  function entrar(comoLideranca = true) {
-    setUsuario(comoLideranca ? USUARIO_FAKE_LIDERANCA : USUARIO_FAKE_CORISTA);
+  useEffect(() => {
+    definirAoExpirarSessao(() => setSessao(null));
+  }, []);
+
+  async function entrar(email, senha) {
+    const { data } = await api.post('/auth/login', { email, senha });
+    definirToken(data.token);
+    setSessao({ email: data.email, roles: data.roles });
   }
 
   function sair() {
-    setUsuario(null);
+    definirToken(null);
+    setSessao(null);
   }
 
   const valor = {
-    usuario,
-    papel: usuario?.papel ?? null,
-    areas: usuario?.areas ?? [],
+    usuario: sessao ? { email: sessao.email } : null,
+    permissoes: sessao?.roles ?? [],
     entrar,
     sair,
   };
@@ -39,6 +32,7 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={valor}>{children}</AuthContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- hook de contexto, convive com o Provider de propósito
 export function useAuth() {
   const contexto = useContext(AuthContext);
   if (!contexto) throw new Error('useAuth deve ser usado dentro de AuthProvider');
