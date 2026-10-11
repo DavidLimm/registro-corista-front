@@ -1,7 +1,7 @@
-export function extrairMensagemErro(erro) {
-  return erro?.detalhe ?? 'Não foi possível completar a operação.';
-}
-
-export function extrairErrosDeCampo(erro) {
-  return erro?.campos ?? [];
+export function aplicarErros(erro, marcarCampo, mostrarAviso) {
+  if (erro.campos?.length) {
+    erro.campos.forEach((item) => marcarCampo(item.campo, item.mensagem));
+  } else {
+    mostrarAviso(erro.detalhe);
+  }
 }
