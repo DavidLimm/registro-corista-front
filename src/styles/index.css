@@ -34,3 +34,7 @@ body {
   color: var(--color-texto);
 }
 
+dialog::backdrop {
+  background-color: color-mix(in srgb, var(--color-texto) 40%, transparent);
+}
+
