@@ -708,6 +708,7 @@ Formatação: a API devolve `cep` só com dígitos (`50050000`) — formatar `00
 /lideranca/papeis                                                           (ROLE_GERENCIAR_PERMISSOES | ROLE_SOLICITAR | ROLE_APROVAR)
 /corista                    LayoutCorista → DashboardCorista
 /corista/meu-cadastro
+/sem-permissao              logado, mas sem a permissão exigida pela rota (403 de UX)
 *                           NaoEncontrado
 ```
 

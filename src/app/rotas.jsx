@@ -8,6 +8,7 @@ import LoginPagina from '../features/login/LoginPagina';
 import DashboardLideranca from '../features/dashboard/DashboardLideranca';
 import DashboardCorista from '../features/dashboard/DashboardCorista';
 import NaoEncontrado from '../shared/NaoEncontrado';
+import NaoAutorizado from '../shared/NaoAutorizado';
 
 export const rotas = createBrowserRouter([
   {
@@ -43,5 +44,6 @@ export const rotas = createBrowserRouter([
       },
     ],
   },
+  { path: '/sem-permissao', element: <NaoAutorizado /> },
   { path: '*', element: <NaoEncontrado /> },
 ]);

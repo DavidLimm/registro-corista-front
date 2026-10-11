@@ -10,7 +10,7 @@ export default function RotaProtegida({ permissoesPermitidas }) {
   }
 
   if (permissoesPermitidas?.length && !temAlgumaPermissao(permissoes, permissoesPermitidas)) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/sem-permissao" replace />;
   }
 
   // A autorização real sempre vem do backend (403/404); isto é só UX.
