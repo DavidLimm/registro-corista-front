@@ -1,15 +1,19 @@
 import { Navigate, Outlet } from 'react-router';
 import { useAuth } from './AuthContext';
+import { temAlgumaPermissao } from './permissoes';
 
-export default function RotaProtegida({ papeisPermitidos }) {
-  const { usuario } = useAuth();
+export default function RotaProtegida({ permissoesPermitidas }) {
+  const { usuario, permissoes } = useAuth();
 
   if (!usuario) {
     return <Navigate to="/login" replace />;
   }
 
-  // TODO: quando os papéis estiverem definidos, validar papeisPermitidos aqui.
-  // A autorização real sempre vem do backend; isto é só UX.
+  if (permissoesPermitidas?.length && !temAlgumaPermissao(permissoes, permissoesPermitidas)) {
+    return <Navigate to="/sem-permissao" replace />;
+  }
+
+  // A autorização real sempre vem do backend (403/404); isto é só UX.
 
   return <Outlet />;
 }
